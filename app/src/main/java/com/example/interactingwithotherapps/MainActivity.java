@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message text");
         emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
         // You can also attach multiple items by passing an ArrayList of Uris
-        startActivityIfSafe(emailIntent);
+        startActivityIfSafeByChooser(emailIntent);
     }
 
     public void cal(View view) {
@@ -73,5 +73,14 @@ public class MainActivity extends AppCompatActivity {
         if(isIntentSafe) {
             startActivity(intent);
         }
+    }
+
+    private void startActivityIfSafeByChooser(Intent intent) {
+        // Always use string resources for UI text.
+        // This says something like "Share this photo with"
+        String title = getResources().getString(R.string.chooser_title);
+        // Create intent to show chooser
+        Intent chooser = Intent.createChooser(intent, title);
+        startActivityIfSafe(chooser);
     }
 }
