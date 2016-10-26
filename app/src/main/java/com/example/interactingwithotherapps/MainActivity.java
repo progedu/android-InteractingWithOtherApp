@@ -1,6 +1,7 @@
 package com.example.interactingwithotherapps;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public void tel(View view) {
         Uri number = Uri.parse("tel:5551234");
         Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-        startActivity(callIntent);
+        startActivityIfSafe(callIntent);
     }
 
     public void map(View view) {
@@ -29,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
         // Or map point based on latitude/longitude
         // Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-        startActivity(mapIntent);
+        startActivityIfSafe(mapIntent);
     }
 
     public void web(View view) {
         Uri webpage = Uri.parse("http://www.android.com");
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-        startActivity(webIntent);
+        startActivityIfSafe(webIntent);
     }
 
     public void email(View view) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message text");
         emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
         // You can also attach multiple items by passing an ArrayList of Uris
-        startActivity(emailIntent);
+        startActivityIfSafe(emailIntent);
     }
 
     public void cal(View view) {
@@ -60,6 +62,16 @@ public class MainActivity extends AppCompatActivity {
         calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
         calendarIntent.putExtra(CalendarContract.Events.TITLE, "Ninja class");
         calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Secret dojo");
-        startActivity(calendarIntent);
+        startActivityIfSafe(calendarIntent);
+    }
+
+    private void startActivityIfSafe(Intent intent) {
+        PackageManager packageManager = getPackageManager();
+        List activities = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        boolean isIntentSafe = activities.size() > 0;
+        if(isIntentSafe) {
+            startActivity(intent);
+        }
     }
 }
