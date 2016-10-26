@@ -1,7 +1,6 @@
 package com.example.interactingwithotherapps;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
