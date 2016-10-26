@@ -1,5 +1,6 @@
 package com.example.interactingwithotherapps;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,11 @@ public class ShareActivity extends AppCompatActivity {
     }
 
     public void share(View view) {
-
+        // Create intent to deliver some kind of result data
+        Intent result = new Intent("com.example.RESULT_ACTION", Uri.parse("content://result_uri"));
+        result.setType("text/plain");
+        result.putExtra(Intent.EXTRA_TEXT, "Shared text massage.");
+        setResult(Activity.RESULT_OK, result);
+        finish();
     }
 }

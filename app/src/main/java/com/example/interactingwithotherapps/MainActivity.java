@@ -132,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.hello_text);
                 textView.setText("Phone number: " + number);
             }
+        } else if(requestCode == PICK_TEXT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                String text = data.getStringExtra(Intent.EXTRA_TEXT);
+                TextView textView = (TextView) findViewById(R.id.hello_text);
+                textView.setText("Picked text: " + text);
+            }
         }
     }
 }
