@@ -95,6 +95,15 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
     }
 
+    static final int PICK_TEXT_REQUEST = 2;  // The request code
+
+    public void request(View view) {
+        Intent pickTextIntent = new Intent(Intent.ACTION_SEND);
+        pickTextIntent.setType("text/plain");
+        pickTextIntent.putExtra(Intent.EXTRA_TEXT, "Sent text massage.");
+        startActivityForResult(pickTextIntent, PICK_TEXT_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request it is that we're responding to
