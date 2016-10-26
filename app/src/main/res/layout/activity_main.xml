@@ -53,4 +53,12 @@
         android:layout_below="@+id/tel_button"
         android:text="Cal"
         android:onClick="cal" />
+    <Button
+        android:id="@+id/contact_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tel_button"
+        android:layout_toEndOf="@+id/cal_button"
+        android:text="Contact"
+        android:onClick="contact" />
 </RelativeLayout>

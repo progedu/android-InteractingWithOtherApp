@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -82,5 +83,13 @@ public class MainActivity extends AppCompatActivity {
         // Create intent to show chooser
         Intent chooser = Intent.createChooser(intent, title);
         startActivityIfSafe(chooser);
+    }
+
+    static final int PICK_CONTACT_REQUEST = 1;  // The request code
+
+    public void contact(View view) {
+        Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
+        pickContactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+        startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
     }
 }
